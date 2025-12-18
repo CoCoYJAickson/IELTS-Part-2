@@ -3,146 +3,213 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>雅思口语 Part 2 练习工具</title>
+    <title>雅思口语 Part 2 智库</title>
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f9f9f9;
-            margin: 0;
-            padding: 20px;
+        :root {
+            --primary-color: #5d9cec;
+            --secondary-color: #4a8ad8;
+            --bg-color: #f4f7f9;
+            --card-bg: #ffffff;
+            --text-main: #2c3e50;
+            --text-sub: #555;
+            --accent-yellow: #fff9e6;
+            --border-yellow: #ffc107;
         }
+
+        body {
+            font-family: -apple-system, "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
+            line-height: 1.6;
+            color: var(--text-main);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 10px;
+            scroll-behavior: smooth;
+        }
+
         .container {
             max-width: 900px;
-            margin: auto;
-            background: #fff;
-            padding: 20px 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            margin: 20px auto;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
-        h1, h2, h3, h4 {
-            color: #2c3e50;
-            border-bottom: 2px solid #e0e0e0;
-            padding-bottom: 10px;
-        }
-        h1 {
+
+        header {
             text-align: center;
-            font-size: 2em;
-            border-bottom: 2px solid #5d9cec;
+            margin-bottom: 30px;
         }
-        .intro, .cue-card {
+
+        h1 {
+            font-size: 2.2em;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .intro {
             background-color: #eef5ff;
-            border-left: 5px solid #5d9cec;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 5px;
+            border-left: 5px solid var(--primary-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
         }
+
+        /* 导航与功能按钮 */
         .nav-buttons {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 15px;
-            margin: 30px 0;
-        }
-        .nav-buttons a {
-            text-decoration: none;
-            background-color: #5d9cec;
-            color: white;
-            padding: 12px 25px;
-            text-align: center;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 8px;
-            transition: background-color 0.3s, transform 0.2s;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        .nav-buttons a:hover {
-            background-color: #4a8ad8;
-            transform: translateY(-2px);
-        }
-        .topic-section {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px dashed #ccc;
-        }
-        .vocabulary-bank ul {
-            list-style-type: none;
-            padding: 0;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .vocabulary-bank ul li {
-            background-color: #f0f0f0;
-            padding: 5px 12px;
-            border-radius: 15px;
-            font-size: 15px;
-            color: #555;
-        }
-        .thinking-guide {
-            background-color: #fff9e6;
-            border-left: 5px solid #ffc107;
-            padding: 1px 20px 15px 20px;
-            border-radius: 5px;
-        }
-        .thinking-guide ol li {
-            margin-bottom: 10px;
-            font-weight: 500;
-        }
-        .thinking-guide ol li span {
-            font-weight: normal;
-            color: #666;
-            display: block;
-            margin-top: 5px;
-            font-style: italic;
+            gap: 12px;
+            margin: 20px 0;
+            position: sticky;
+            top: 10px;
+            z-index: 100;
         }
 
-        /* Tabs Styling */
-        .tab-container {
-            overflow: hidden;
-            border-bottom: 2px solid #5d9cec;
-            margin-bottom: 20px;
-        }
-        .tab {
-            background-color: inherit;
-            float: left;
+        .nav-buttons a, .random-btn {
+            text-decoration: none;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            font-size: 14px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             border: none;
-            outline: none;
             cursor: pointer;
-            padding: 14px 16px;
-            transition: 0.3s;
-            font-size: 16px;
+        }
+
+        .random-btn { background-color: #67c23a; }
+        .nav-buttons a:hover, .random-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            background-color: var(--secondary-color);
+        }
+
+        /* 话题板块 */
+        .topic-section {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+        }
+
+        h2 { border-left: 5px solid var(--primary-color); padding-left: 15px; margin-bottom: 25px; }
+
+        /* 选项卡样式 */
+        .tab-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+
+        .tab {
+            padding: 10px 18px;
+            cursor: pointer;
             border-radius: 8px 8px 0 0;
+            white-space: nowrap;
+            transition: 0.3s;
+            background: #f0f0f0;
         }
-        .tab:hover {
-            background-color: #eef5ff;
-        }
+
         .tab.active {
-            background-color: #5d9cec;
+            background: var(--primary-color);
             color: white;
             font-weight: bold;
         }
-        .tab-content {
+
+        .tab-content { display: none; animation: fadeIn 0.5s ease; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .cue-card {
+            background-color: #f8f9fa;
+            border: 1px dashed var(--primary-color);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        /* 词汇库 */
+        .vocabulary-bank ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .vocabulary-bank li {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        .vocabulary-bank li:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        /* 思路引导 */
+        .thinking-guide {
+            background-color: var(--accent-yellow);
+            border-left: 5px solid var(--border-yellow);
+            padding: 15px 20px;
+            border-radius: 8px;
+        }
+
+        .thinking-guide li { margin-bottom: 15px; }
+        .thinking-guide span {
+            display: block;
+            margin-top: 8px;
+            color: #666;
+            font-style: italic;
+            border-left: 2px solid #ccc;
+            padding-left: 10px;
+        }
+
+        /* 回到顶部 */
+        #backToTop {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
             display: none;
-            padding: 10px 0;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 15px; }
+            .nav-buttons a { font-size: 12px; padding: 8px 15px; }
         }
     </style>
 </head>
 <body>
 
+    <div id="backToTop" onclick="window.scrollTo(0,0)">↑</div>
+
     <div class="container">
-        <h1>雅思口语 Part 2 练习工具</h1>
+        <header>
+            <h1>雅思口语 Part 2 练习工具</h1>
+            <button class="random-btn" onclick="getRandomTopic()">🎲 随机挑战一个话题</button>
+        </header>
 
         <div class="intro">
-            <p>你好！这个页面是你的个人口语练习工具。这里没有标准答案，只有帮助你更好、更自信地讲出自己故事的工具。</p>
-            <p><strong>练习方法：</strong></p>
-            <ol>
-                <li>选择一个你想练习的话题。</li>
-                <li>浏览下方的“词汇库”，熟悉并尝试在回答中使用这些词汇。</li>
-                <li>参考“思路引导”，用自己的话，完整地讲述2分钟。</li>
-                <li>重复练习，直到你觉得自然、流畅为止。</li>
-            </ol>
+            <p><strong>💡 练习指南：</strong> 每天选择2-3个话题，先看词汇，再对照思路引导进行2分钟不间断录音。重复3次，直到流利顺滑。</p>
         </div>
 
         <div class="nav-buttons">
@@ -151,250 +218,112 @@
             <a href="#place">地点</a>
             <a href="#media">媒体/物品</a>
             <a href="#activity">活动</a>
+            <a href="#nature">自然</a>
         </div>
 
-        <!-- Topic 1: Event -->
-        <div id="event" class="topic-section">
-            <h2>主题：事件 (Event)</h2>
-            <div class="tab-container">
-                <div class="tab active" onclick="openTab(event, 'GameChallenge')">挑战 (做游戏)</div>
-                <div class="tab" onclick="openTab(event, 'BusyTime')">忙碌的时刻</div>
-            </div>
-
-            <div id="GameChallenge" class="tab-content">
-                <div class="cue-card"><p><strong>Describe a difficult challenge you met.</strong></p></div>
-                <h4>词汇库 (挑战：做游戏)</h4>
-                <div class="vocabulary-bank">
-                    <ul><li>from scratch</li><li>2D game</li><li>Unity engine</li><li>graduation application</li><li>ambitious project</li><li>steep learning curve</li><li>coding</li><li>art design</li><li>sound effects</li><li>debugging</li><li>countless hours</li><li>frustrating bugs</li><li>felt like giving up</li><li>persevered</li><li>eight long months</li><li>sense of pride</li><li>huge accomplishment</li><li>problem-solving skills</li><li>patience</li><li>stayed up late</li></ul>
-                </div>
-                <h4>回答思路引导</h4>
-                <div class="thinking-guide">
-                    <ol>
-                        <li><strong>开头：点明挑战</strong><span>"I'd like to talk about a recent challenge I faced, which was creating a 2D game from scratch for my graduation application."</span></li>
-                        <li><strong>背景：为什么很难？</strong><span>"It was a huge challenge for me because I had almost no experience in game development. I had to learn everything, from coding in a new language to creating the art and sound for the game."</span></li>
-                        <li><strong>过程：你如何应对？</strong><span>"The whole process took about eight long months. There were many times I got stuck on a frustrating bug and felt like giving up. But I persevered by watching online tutorials and asking for help from online forums."</span></li>
-                        <li><strong>结果与感受：</strong><span>"Finally, I completed the project. Holding the finished game in my hands, I felt an incredible sense of pride. This experience taught me the importance of patience and problem-solving."</span></li>
-                </ol>
-            </div>
-            </div>
-
-            <div id="BusyTime" class="tab-content">
-                <div class="cue-card"> <p><strong>Describe a time when you were very busy.</strong></p> </div>
-                <h4>词汇库 (忙碌的时刻)</h4>
-                <div class="vocabulary-bank">
-                    <ul><li>hectic</li><li>swamped</li><li>overloaded</li><li>up to my neck in work</li><li>a tight schedule</li><li>deadline</li><li>pressure</li><li>time management</li><li>prioritize tasks</li><li>juggle multiple things</li><li>stay organized</li><li>efficient</li><li>productive</li><li>exhausted</li><li>drained</li><li>burnout</li><li>a sense of relief</li><li>a sense of achievement</li><li>multitasking</li><li>non-stop</li></ul>
-                </div>
-                <h4>回答思路引导</h4>
-                <div class="thinking-guide">
-                     <ol>
-                        <li><strong>开头：点明情况</strong><span>"I'd like to talk about a time when I was extremely busy, which was during my final exam period last semester."</span></li>
-                        <li><strong>背景：为什么这么忙？</strong><span>"I had to prepare for several major exams, and at the same time, I had a big project deadline for another course. Everything just piled up at once."</span></li>
-                        <li><strong>过程：你如何应对？</strong><span>"To handle the situation, I had to be very organized. I made a detailed schedule for each day to prioritize my tasks. It was tough, and I had to juggle studying and working on the project."</span></li>
-                        <li><strong>结果与感受：</strong><span>"Although I was completely exhausted by the end of it, I managed to finish everything on time. I felt a huge sense of relief and accomplishment."</span></li>
-                    </ol>
-                </div>
-            </div>
-        </div>
-
-        <!-- Topic 2: People -->
         <div id="people" class="topic-section">
             <h2>主题：人物 (People)</h2>
             <div class="tab-container">
-                <div class="tab active" onclick="openTab(event, 'FriendJerry')">朋友Jerry</div>
+                <div class="tab" onclick="openTab(event, 'FriendJerry')">朋友Jerry</div>
                 <div class="tab" onclick="openTab(event, 'Grandfather')">长辈 (爷爷)</div>
-                <div class="tab" onclick="openTab(event, 'JiaLing')">贾玲</div>
+                <div class="tab" onclick="openTab(event, 'JiaLing')">演员 (贾玲)</div>
+                <div class="tab" onclick="openTab(event, 'Sportsperson')">运动员 (新)</div>
             </div>
 
-            <div id="FriendJerry" class="tab-content">
-                <div class="cue-card"><p><strong>Describe a close friend.</strong></p></div>
-                <h4>词汇库 (朋友Jerry)</h4>
+            <div id="Sportsperson" class="tab-content">
+                <div class="cue-card"><p><strong>Describe a sportsperson you admire.</strong></p></div>
+                <h4>词汇库 (运动员)</h4>
                 <div class="vocabulary-bank">
-                    <ul><li>classmate</li><li>like an older brother</li><li>tall</li><li>muscular</li><li>wears glasses</li><li>introverted</li><li>sensitive</li><li>caring</li><li>talkative with friends</li><li>shy at first</li><li>seemed clumsy</li><li>reliable</li><li>humorous</li><li>school trip</li><li>excursion</li><li>desert</li><li>exhausted</li><li>dehydrated</li><li>ran out of water</li><li>shared his water</li><li>encouraged me</li><li>a true friend shows up</li></ul>
+                    <ul><li>top-tier athlete</li><li>physical peak</li><li>sheer determination</li><li>mental toughness</li><li>unrivaled talent</li><li>role model</li><li>break world records</li><li>overcome injuries</li><li>humble</li><li>perseverance</li><li>Olympic medalist</li><li>indomitable spirit</li><li>dedication</li><li>strict training regime</li><li>inspirational</li></ul>
                 </div>
                 <h4>回答思路引导</h4>
                 <div class="thinking-guide">
                     <ol>
-                        <li><strong>介绍：</strong><span>"I'd like to talk about my close friend, Jerry. We've been classmates since the 6th grade."</span></li>
-                        <li><strong>他是什么样的人？(性格/外貌/印象转变)</strong><span>"He's tall, wears glasses, and looks quite muscular. When I first met him, I thought he was shy and a bit clumsy. But as I got to know him, I found that he's actually very caring, reliable, and humorous, especially with his friends."</span></li>
-                        <li><strong>一个具体故事：</strong><span>"I vividly remember a time during a school excursion in a desert. I was exhausted and ran out of water. Just when I felt I couldn't go on, Jerry came over, shared his own water with me, and kept encouraging me."</span></li>
-                        <li><strong>为什么他是你好朋友？</strong><span>"That moment really showed me what a true friend he is. It proved that he's not just a funny guy, but someone you can really count on, especially in difficult times."</span></li>
+                        <li><strong>介绍：</strong><span>"I'd like to talk about Zheng Qinwen, a rising star in the tennis world who has become a national hero recently."</span></li>
+                        <li><strong>成名原因：</strong><span>"She gained massive popularity after winning the gold medal at the Paris Olympics. It was a historic moment for Chinese tennis."</span></li>
+                        <li><strong>为什么欣赏：</strong><span>"What I admire most is her mental toughness. Even when she's facing a disadvantage, she never loses her cool. Her 'never-give-up' attitude is truly contagious."</span></li>
+                        <li><strong>总结：</strong><span>"She is more than just a talented athlete; she is a symbol of hard work and perseverance for the younger generation."</span></li>
                     </ol>
                 </div>
             </div>
-
-            <div id="Grandfather" class="tab-content">
-                <div class="cue-card"><p><strong>Describe an old person you respect who has influenced you.</strong></p></div>
-                <h4>词汇库 (长辈：爷爷)</h4>
-                <div class="vocabulary-bank">
-                    <ul><li>grandfather</li><li>pianist</li><li>strict</li><li>cautious</li><li>meticulous</li><li>passionate about music</li><li>dedicated to his art</li><li>high standards</li><li>patient</li><li>responsible</li><li>life lessons</li><li>practicing piano</li><li>attention to detail</li><li>perseverance</li><li>never give up</li><li>profound influence</li><li>shaped my character</li><li>instilled in me...</li></ul>
-                </div>
-                <h4>回答思路引导</h4>
-                <div class="thinking-guide">
-                    <ol>
-                        <li><strong>介绍：</strong><span>"The person I'd like to describe is my grandfather. He was a professional pianist and has had a profound influence on me."</span></li>
-                        <li><strong>他是什么样的人？</strong><span>"He was a very strict and meticulous man, especially when it came to music. But underneath that, he was incredibly passionate about his profession and about life."</span></li>
-                        <li><strong>他如何影响你？(举例)</strong><span>"He taught me how to play the piano. His lessons were not just about technique; they were life lessons. He taught me the importance of patience by making me practice a single piece for weeks. He taught me to be responsible for every note I played."</span></li>
-                        <li><strong>总结：</strong><span>"His strictness shaped my character. He instilled in me a strong sense of responsibility and the perseverance to never give up easily, which are valuable lessons I carry with me every day."</span></li>
-                    </ol>
-                </div>
             </div>
 
-            <div id="JiaLing" class="tab-content">
-                <div class="cue-card"><p><strong>Describe an actor or actress you admire.</strong></p></div>
-                <h4>词汇库 (贾玲)</h4>
-                <div class="vocabulary-bank">
-                     <ul><li>comedian</li><li>actress</li><li>director</li><li>humorous</li><li>witty</li><li>down-to-earth</li><li>relatable</li><li>approachable</li><li>optimistic</li><li>resilient</li><li>determined</li><li>inspiring</li><li>versatile</li><li>talented</li><li>comedy sketches</li><li>box office success</li><li>"Hi, Mom"</li><li>"YOLO"</li><li>brings joy and laughter</li><li>positive energy</li><li>inspirational journey</li><li>breaks stereotypes</li><li>role model</li></ul>
-                </div>
-                <h4>回答思路引导</h4>
-                <div class="thinking-guide">
-                    <ol>
-                        <li><strong>介绍：</strong><span>"I'd like to talk about Jia Ling, who is a very famous comedian and director in China."</span></li>
-                        <li><strong>你为何欣赏她 (幽默)：</strong><span>"I first knew her from her comedy work. She has a unique talent for making people laugh. Her humor is very clever and down-to-earth."</span></li>
-                        <li><strong>你为何欣赏她 (毅力)：</strong><span>"More recently, I admire her for her incredible determination. For her movie 'YOLO', she went through an amazing transformation. It's not just about losing weight; it shows her powerful spirit and dedication to her art."</span></li>
-                         <li><strong>总结：</strong><span>"So for me, she is more than just a funny actress. She is an inspiration who brings people happiness and shows us that anything is possible if you work hard."</span></li>
-                    </ol>
-                </div>
-            </div>
-        </div>
-
-        <!-- Topic 3: Place -->
         <div id="place" class="topic-section">
-             <h2>主题：地点 (Place)</h2>
+            <h2>主题：地点 (Place)</h2>
             <div class="tab-container">
-                <div class="tab active" onclick="openTab(event, 'Yellowstone')">黄石国家公园</div>
+                <div class="tab" onclick="openTab(event, 'Yellowstone')">黄石公园</div>
                 <div class="tab" onclick="openTab(event, 'Zhujiajiao')">朱家角</div>
+                <div class="tab" onclick="openTab(event, 'InterestingBuilding')">有趣建筑 (新)</div>
             </div>
 
-            <div id="Yellowstone" class="tab-content">
-                <div class="cue-card"><p><strong>Describe a beautiful place you would like to visit.</strong></p></div>
-                <h4>词汇库 (黄石国家公园)</h4>
+            <div id="InterestingBuilding" class="tab-content">
+                <div class="cue-card"><p><strong>Describe an interesting building you know.</strong></p></div>
+                <h4>词汇库 (有趣建筑：上海中心)</h4>
                 <div class="vocabulary-bank">
-                    <ul><li>vast wilderness</li><li>pristine nature</li><li>geothermal features</li><li>geysers</li><li>hot springs</li><li>canyons</li><li>forests</li><li>waterfalls</li><li>Old Faithful</li><li>Grand Prismatic Spring</li><li>vibrant colors</li><li>rainbow-like</li><li>turquoise blue</li><li>fiery orange</li><li>wildlife</li><li>bison</li><li>bears</li><li>roam freely</li><li>awe-inspiring</li><li>majestic</li><li>spectacular</li><li>untouched</li><li>wild</li><li>powerful</li><li>a sense of wonder</li></ul>
-                </div>
-                <h4>回答思路引导</h4>
-                 <div class="thinking-guide">
-                    <ol>
-                        <li><strong>介绍：</strong><span>"I would love to visit Yellowstone National Park in the United States. It’s America's first and most famous national park."</span></li>
-                        <li><strong>它吸引你的地方 (景观)：</strong><span>"I've seen it in documentaries, and the landscapes look like they are from another planet. I really want to see the geothermal features, like the geysers and colorful hot springs."</span></li>
-                        <li><strong>你想做什么：</strong><span>"My dream would be to see the Old Faithful geyser erupt with my own eyes. I also want to see the incredible rainbow-like colors of the Grand Prismatic Spring. And, of course, I hope to safely see some wildlife, like the huge herds of bison roaming freely."</span></li>
-                        <li><strong>总结：</strong><span>"For me, visiting Yellowstone would be an unforgettable adventure. It's a chance to witness the raw power and beauty of nature."</span></li>
-                    </ol>
-                </div>
-            </div>
-
-            <div id="Zhujiajiao" class="tab-content">
-                 <div class="cue-card"><p><strong>Describe a historical place you would like to visit.</strong></p></div>
-                 <h4>词汇库 (朱家角)</h4>
-                 <div class="vocabulary-bank">
-                    <ul><li>ancient water town</li><li>"Venice of Shanghai"</li><li>well-preserved</li><li>historic</li><li>canals</li><li>streams</li><li>stone bridges</li><li>narrow alleys</li><li>traditional architecture</li><li>white-washed walls</li><li>wooden boats</li><li>peaceful</li><li>tranquil</li><li>nostalgic</li><li>charming</li><li>slow-paced</li><li>a step back in time</li><li>strolling along the canals</li><li>taking a boat ride</li><li>local snacks</li></ul>
+                    <ul><li>architectural marvel</li><li>skyscraper</li><li>futuristic design</li><li>spiral shape</li><li>breathtaking views</li><li>landmark</li><li>sustainable</li><li>glass facade</li><li>state-of-the-art</li><li>urban landscape</li><li>skyline</li><li>observation deck</li><li>iconic structure</li></ul>
                 </div>
                 <h4>回答思路引导</h4>
                 <div class="thinking-guide">
                     <ol>
-                        <li><strong>介绍：</strong><span>"I'd like to talk about Zhujiajiao, which is an ancient water town located near Shanghai."</span></li>
-                        <li><strong>描述它的样貌 (画面感)：</strong><span>"It's often called the 'Venice of Shanghai'. Instead of roads, there are many small canals, and you cross them using beautiful old stone bridges. The houses are very traditional and look like something from an old Chinese painting."</span></li>
-                        <li><strong>可以做什么：</strong><span>"When you are there, you can just stroll along the narrow alleys, take a relaxing ride on a wooden boat, and try all kinds of local snacks. The whole atmosphere is very peaceful and slow-paced."</span></li>
-                         <li><strong>为什么喜欢它：</strong><span>"I love places like this because it feels like taking a step back in time. It's a perfect escape from the noisy, modern city and a great way to experience traditional Chinese culture."</span></li>
+                        <li><strong>地点与名称：</strong><span>"I want to describe the Shanghai Tower, which is currently the tallest building in China and a true architectural marvel."</span></li>
+                        <li><strong>外观特征：</strong><span>"It has a unique spiral shape that looks like a dragon twisting up towards the sky. The glass facade makes it look very futuristic, especially at night when it's all lit up."</span></li>
+                        <li><strong>内部/功能：</strong><span>"Inside, it's like a vertical city with offices, hotels, and a famous observation deck. Taking the high-speed elevator to the top is an experience in itself."</span></li>
+                        <li><strong>为什么觉得有趣：</strong><span>"I find it interesting not just because of its height, but because of its green design. It uses wind turbines and rainwater harvesting, showing how modern cities can be sustainable."</span></li>
                     </ol>
                 </div>
             </div>
         </div>
 
-        <!-- Topic 4: Media & Objects -->
-        <div id="media" class="topic-section">
-            <h2>主题：物品与媒体 (Object & Media)</h2>
-            <div class="tab-container">
-                <div class="tab active" onclick="openTab(event, 'Song')">歌曲</div>
-                <div class="tab" onclick="openTab(event, 'Movie')">电影</div>
-                <div class="tab" onclick="openTab(event, 'Book')">书/故事</div>
-                <div class="tab" onclick="openTab(event, 'Tech')">科技</div>
-            </div>
-
-            <div id="Song" class="tab-content">
-                <div class="cue-card"><p><strong>Describe a song that has a special meaning to you.</strong></p></div>
-                <h4>词汇库 (如果有一天我变得很有钱)</h4>
-                <div class="vocabulary-bank">
-                    <ul><li>folk song</li><li>simple melody</li><li>catchy tune</li><li>acoustic guitar</li><li>humorous</li><li>witty</li><li>relatable</li><li>down-to-earth</li><li>imaginative</li><li>thought-provoking</li><li>daydreaming</li><li>fantasy of being rich</li><li>materialism</li><li>simple pleasures</li><li>distinctive voice</li><li>storyteller</li><li>relaxing</li><li>amusing</li><li>makes me smile</li><li>makes me think</li></ul>
-                </div>
-                 <h4>回答思路引导</h4>
-                <div class="thinking-guide">
-                    <ol>
-                        <li><strong>介绍：</strong><span>"A song that I find very interesting is called 'If I Become Rich One Day' by Mao Buyi."</span></li>
-                        <li><strong>内容是什么：</strong><span>"It's a very humorous folk song. The lyrics are about a regular person daydreaming about all the simple and funny things he would do if he were rich, like buying a huge house and sleeping all day."</span></li>
-                        <li><strong>它给你的感觉：</strong><span>"Every time I listen to it, it makes me smile. The melody is very catchy and relaxing, and the lyrics are just so relatable and down-to-earth."</span></li>
-                        <li><strong>为何特别：</strong><span>"I think it's special because it's not just a silly song. It makes you think about what happiness really is. It suggests that maybe the best things in life aren't about being super rich, but about having freedom and enjoying simple pleasures."</span></li>
-                    </ol>
-                </div>
-            </div>
-            <div id="Movie" class="tab-content">
-                <div class="cue-card"><p><strong>Describe your favorite movie.</strong></p></div>
-                <h4>词汇库 (哈利波特)</h4>
-                <div class="vocabulary-bank">
-                    <ul><li>fantasy</li><li>adventure</li><li>coming-of-age story</li><li>magical world</li><li>Hogwarts</li><li>wizards and witches</li><li>good versus evil</li><li>friendship</li><li>courage</li><li>love</li><li>sacrifice</li><li>brave</li><li>loyal</li><li>intelligent</li><li>relatable trio</li><li>part of my childhood</li><li>grew up with the characters</li><li>sparked my imagination</li><li>an escape from reality</li><li>unforgettable</li></ul>
-                </div>
-                 <h4>回答思路引导</h4>
-                <div class="thinking-guide">
-                    <ol>
-                        <li><strong>介绍：</strong><span>"My favorite movie series is definitely Harry Potter. I grew up watching these movies."</span></li>
-                        <li><strong>简单情节：</strong><span>"It's a fantasy story about a young boy, Harry, who finds out he is a wizard and goes to a magical school called Hogwarts. He and his friends have many adventures and fight against an evil villain."</span></li>
-                        <li><strong>你喜欢什么：</strong><span>"I love everything about it, especially the magical world. I always wished I could get a letter from Hogwarts and learn magic. Also, the story about the friendship between Harry, Ron, and Hermione is very touching. They always support each other."</span></li>
-                        <li><strong>为何是你的最爱：</strong><span>"It's my favorite because it's more than just a movie. It was a huge part of my childhood. It taught me about the importance of courage, friendship, and love. It's a story that will always be special to me."</span></li>
-                    </ol>
-                </div>
-            </div>
-            <div id="Book" class="tab-content">
-                <div class="cue-card"><p><strong>Describe a book you've read or a story you found interesting.</strong></p></div>
-                <h4>词汇库 (绿皮书)</h4>
-                <div class="vocabulary-bank">
-                    <ul><li>biographical film</li><li>drama</li><li>road movie</li><li>based on a true story</li><li>1960s America</li><li>racial segregation</li><li>unlikely friendship</li><li>journey</li><li>prejudiced society</li><li>racism</li><li>humanity</li><li>dignity</li><li>overcoming differences</li><li>moving</li><li>touching</li><li>powerful</li><li>thought-provoking</li><li>eye-opening</li><li>inspiring</li><li>heartwarming</li></ul>
-                </div>
-                 <h4>回答思路引导</h4>
-                <div class="thinking-guide">
-                    <ol>
-                        <li><strong>介绍：</strong><span>"I'd like to talk about a story from a movie called 'Green Book'. It's based on a true and very interesting story."</span></li>
-                        <li><strong>情节：</strong><span>"It's about a brilliant African-American pianist who hires a tough Italian-American from New York to be his driver for a concert tour in the racist American South during the 1960s."</span></li>
-                        <li><strong>有趣之处：</strong><span>"The most interesting part is their friendship. They are complete opposites at first and don't like each other. But as they travel together and face many difficulties, they begin to understand and respect each other, forming a very deep bond."</span></li>
-                        <li><strong>为何你喜欢它：</strong><span>"I found this story very powerful and heartwarming. It's funny at times, but also very moving. It shows how friendship and humanity can overcome prejudice, and that's a very inspiring message."</span></li>
-                    </ol>
-                </div>
-            </div>
-            <div id="Tech" class="tab-content">
-                <div class="cue-card"><p><strong>Describe a piece of technology you find useful.</strong></p></div>
-                <h4>词汇库 (AI)</h4>
-                <div class="vocabulary-bank">
-                    <ul><li>Artificial Intelligence</li><li>smart algorithms</li><li>machine learning</li><li>virtual assistants</li><li>navigation apps</li><li>recommendation systems</li><li>chatbots</li><li>convenient</li><li>efficient</li><li>saves time</li><li>simplifies tasks</li><li>provides information</li><li>helps with learning</li><li>aids creativity</li><li>powerful tool</li><li>a helpful assistant</li><li>game-changer</li><li>revolutionary</li></ul>
-                </div>
-                 <h4>回答思路引导</h4>
-                <div class="thinking-guide">
-                    <ol>
-                        <li><strong>介绍：</strong><span>"A piece of technology I find incredibly useful is Artificial Intelligence, or AI."</span></li>
-                        <li><strong>简单解释：</strong><span>"In simple terms, AI is about making computers smart enough to do things that usually require a human brain, like learning, problem-solving, and understanding language."</span></li>
-                        <li><strong>如何使用 (举例)：</strong><span>"I use it every day, often without realizing it. For example, when I use a map app on my phone to find the best route, that's AI. When I ask my phone a question, the virtual assistant that answers is using AI. It also helps me with my studies by translating texts or finding information quickly."</span></li>
-                        <li><strong>为何它有用：</strong><span>"I find it so useful because it's like having a super-smart assistant available 24/7. It saves a lot of time and makes many daily tasks much easier and more efficient. It's a real game-changer."</span></li>
-                    </ol>
-                </div>
-            </div>
-        </div>
-
-        <!-- Topic 5: Activity -->
         <div id="activity" class="topic-section">
-            <h2>主题：活动 (A Hobby You Enjoy)</h2>
-             <div class="cue-card"><p><strong>Describe a hobby you enjoy.</strong></p></div>
-            <h4>词汇库 (一个爱好)</h4>
-            <div class="vocabulary-bank">
-                 <ul><li>cooking</li><li>baking</li><li>photography</li><li>painting</li><li>playing an instrument</li><li>creative</li><li>relaxing</li><li>therapeutic</li><li>a good way to unwind</li><li>de-stress</li><li>a sense of satisfaction</li><li>express myself</li><li>try new recipes</li><li>capture beautiful moments</li><li>ingredients</li><li>composition</li><li>hobby</li><li>pastime</li><li>leisure activity</li></ul>
+            <h2>主题：活动 (Activity)</h2>
+            <div class="tab-container">
+                <div class="tab" onclick="openTab(event, 'CookingHobby')">烹饪爱好</div>
+                <div class="tab" onclick="openTab(event, 'ExcitingActivity')">刺激活动 (新)</div>
             </div>
-            <h4>回答思路引导</h4>
-            <div class="thinking-guide">
-                <ol>
-                    <li><strong>开头：是什么爱好？</strong><span>"My favorite hobby is cooking. I started learning it a couple of years ago by watching online videos."</span></li>
-                    <li><strong>过程：你如何进行？</strong><span>"I usually cook on the weekends when I have more free time. I enjoy going to the market to pick out fresh ingredients. Then I follow a recipe, but sometimes I like to be creative and add my own touch."</span></li>
-                    <li><strong>一个例子：</strong><span>"Last weekend, I tried making spaghetti bolognese from scratch for my family. They all loved it, which gave me a great sense of satisfaction."</span></li>
-                    <li><strong>为什么你喜欢它？</strong><span>"I enjoy cooking because it's a very creative and relaxing process. It's a great way to de-stress after a busy week. Plus, there's nothing better than sharing a delicious meal you've made with the people you love."</span></li>
-                </ol>
+
+            <div id="ExcitingActivity" class="tab-content">
+                <div class="cue-card"><p><strong>Describe an exciting activity that you experienced.</strong></p></div>
+                <h4>词汇库 (刺激活动：过山车/跳伞)</h4>
+                <div class="vocabulary-bank">
+                    <ul><li>adrenaline rush</li><li>thrilling</li><li>heart-pounding</li><li>once-in-a-lifetime</li><li>overcome fear</li><li>scary but exciting</li><li>breathtaking</li><li>screamed my head off</li><li>unforgettable memory</li><li>step out of comfort zone</li><li>sheer excitement</li><li>butterflies in my stomach</li></ul>
+                </div>
+                <h4>回答思路引导</h4>
+                <div class="thinking-guide">
+                    <ol>
+                        <li><strong>是什么活动：</strong><span>"I'd like to talk about the first time I went skydiving during my summer vacation last year. It was the most exciting thing I've ever done."</span></li>
+                        <li><strong>过程细节：</strong><span>"The moment the plane door opened, I felt a massive rush of adrenaline. Free-falling through the air at high speed was both terrifying and incredibly liberating."</span></li>
+                        <li><strong>感受：</strong><span>"I was screaming my head off at first, but once the parachute opened, the view was absolutely breathtaking. I felt like a bird gliding over the landscape."</span></li>
+                        <li><strong>意义：</strong><span>"That experience taught me the importance of stepping out of my comfort zone. Now, whenever I face a challenge, I remember that feeling of overcoming my fear."</span></li>
+                    </ol>
+                </div>
             </div>
         </div>
-    </div>
+
+        <div id="nature" class="topic-section">
+            <h2>主题：自然 (Nature)</h2>
+            <div class="tab-container">
+                <div class="tab" onclick="openTab(event, 'WildAnimals')">野生动物 (新)</div>
+            </div>
+
+            <div id="WildAnimals" class="tab-content">
+                <div class="cue-card"><p><strong>Describe a wild animal you are interested in.</strong></p></div>
+                <h4>词汇库 (野生动物：大熊猫/雪豹)</h4>
+                <div class="vocabulary-bank">
+                    <ul><li>endangered species</li><li>natural habitat</li><li>biodiversity</li><li>conservation</li><li>unique markings</li><li>elusive</li><li>wildlife protection</li><li>eco-system</li><li>magnificent</li><li>predator</li><li>symbol of peace</li><li>vulnerable</li></ul>
+                </div>
+                <h4>回答思路引导</h4>
+                <div class="thinking-guide">
+                    <ol>
+                        <li><strong>介绍：</strong><span>"I've always been fascinated by the Snow Leopard, which is often called the 'Ghost of the Mountains' because it's so elusive."</span></li>
+                        <li><strong>外貌与习性：</strong><span>"They have thick, smoky-grey fur with beautiful black spots, which helps them blend perfectly into the rocky mountains. They are incredible jumpers and very solitary animals."</span></li>
+                        <li><strong>为什么感兴趣：</strong><span>"I find them interesting because of their mysterious nature and their ability to survive in such harsh, freezing environments."</span></li>
+                        <li><strong>现状与呼吁：</strong><span>"Unfortunately, they are an endangered species. I believe we need to do more for wildlife conservation to protect their natural habitats from being destroyed."</span></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        </div>
 
     <script>
         function openTab(evt, tabName) {
@@ -416,14 +345,30 @@
             const tabContainers = document.querySelectorAll('.tab-container');
             tabContainers.forEach(container => {
                 const firstTab = container.querySelector('.tab');
-                if (firstTab) {
-                    firstTab.click();
-                }
+                if (firstTab) firstTab.click();
             });
         }
+
+        // 随机跳转话题
+        function getRandomTopic() {
+            const tabs = document.querySelectorAll('.tab');
+            const randomIdx = Math.floor(Math.random() * tabs.length);
+            tabs[randomIdx].click();
+            tabs[randomIdx].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // 显示/隐藏回到顶部按钮
+        window.onscroll = function() {
+            const btn = document.getElementById("backToTop");
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                btn.style.display = "flex";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+
         document.addEventListener('DOMContentLoaded', initializeTabs);
     </script>
 
 </body>
 </html>
-
